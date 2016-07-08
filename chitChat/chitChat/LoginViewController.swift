@@ -43,6 +43,8 @@ class LoginViewController: UIViewController {
             
         } else {
             // show an error to user
+            
+            ProgressHUD.showError("All fields are required to login")
         }
     }
     

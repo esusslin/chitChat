@@ -40,16 +40,21 @@ class RegisterViewController: UIViewController {
         
         if emailTextField.text != "" && usernameTextField.text != "" {
             
+            ProgressHUD.show("Registering...")
+            
             email = emailTextField.text
             username = usernameTextField.text
             password = passwordTextField.text
             
             register(self.email!, username: self.username!, password: self.password!, avatarImage: self.avatarImage)
         } else {
-            // warning to user
+            // warning to user - email, password and username required
+            ProgressHUD.showError("All fields are required to register")
         }
         
     }
+    
+    //MARK: Backendless user registration
     
     func register(email: String, username: String, password: String, avatarImage: UIImage?) {
         
@@ -63,6 +68,8 @@ class RegisterViewController: UIViewController {
         
         backendless.userService.registering(newUser, response: { (registeredUser : BackendlessUser!) ->
             Void in
+            
+            ProgressHUD.dismiss()
             
             //login new user
             self.loginUser(email, username: username, password: password)
