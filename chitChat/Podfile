@@ -1,0 +1,9 @@
+pod 'JSQMessagesViewController'  
+pod 'IDMPhotoBrowser'
+pod 'Firebase'
+pod 'Firebase/Core'
+pod 'Firebase/Database'
+pod 'Backendless'
+pod 'MBProgressHUD', '~> 0.9.2'
+
+
