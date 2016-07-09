@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
        backendless.initApp(APP_ID, secret:SECRET_KEY, version:VERSION_NUM)
 
-       
+        
 
         
        FIRApp.configure()
