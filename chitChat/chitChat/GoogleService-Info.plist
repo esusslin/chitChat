@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>882603071672-ipomr5ik9djha50j7qkj134s62ae4hcr.apps.googleusercontent.com</string>
+	<string>905507105871-1oock6kvfou8v7gtc4j3jr4bse184h8b.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.882603071672-ipomr5ik9djha50j7qkj134s62ae4hcr</string>
+	<string>com.googleusercontent.apps.905507105871-1oock6kvfou8v7gtc4j3jr4bse184h8b</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCNWi-YFL1mDMMcPlBgDcMyUjFJvsNaxoI</string>
+	<string>AIzaSyA79jKKIjWzsX94q-WFtmaQRQ2bdWGb3UY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>882603071672</string>
+	<string>905507105871</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>esusslin.chitChat</string>
 	<key>PROJECT_ID</key>
-	<string>chitchat-4fc55</string>
+	<string>chittychatty-e7534</string>
 	<key>STORAGE_BUCKET</key>
-	<string>chitchat-4fc55.appspot.com</string>
+	<string>chittychatty-e7534.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:882603071672:ios:ea6afaa9184a0ff6</string>
+	<string>1:905507105871:ios:ea6afaa9184a0ff6</string>
 	<key>DATABASE_URL</key>
-	<string>https://chitchat-4fc55.firebaseio.com</string>
+	<string>https://chittychatty-e7534.firebaseio.com</string>
 </dict>
 </plist>

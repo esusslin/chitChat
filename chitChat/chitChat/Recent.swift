@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK: Helper functions
+
 
 private let dateFormat = "yyyyMMddHHmmss"
 

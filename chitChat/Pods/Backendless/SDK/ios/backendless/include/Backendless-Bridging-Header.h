@@ -24,5 +24,5 @@
 #import <Firebase/Firebase.h>
 #import "ProgressHUD.h"
 //#import "IDMPhotoBrowser.h"
-//#import "MBProgressHUD.h"
+#import "MBProgressHUD.h"
 
