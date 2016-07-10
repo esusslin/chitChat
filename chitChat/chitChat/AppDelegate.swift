@@ -27,10 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
        backendless.initApp(APP_ID, secret:SECRET_KEY, version:VERSION_NUM)
 
+       
         
-
         
        FIRApp.configure()
+       let firebase = FIRDatabase.database().referenceFromURL("https://chittychatty-e7534.firebaseio.com/")
         
         return true
     }
