@@ -18,7 +18,7 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+       loadRecents()
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,6 +55,23 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         performSegueWithIdentifier("recentToChatSegue", sender: self)
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let recent = recents[indexPath.row]
+        
+        // remove recent from the array
+        recents.removeAtIndex(indexPath.row)
+        
+        // delete recent from firebase
+        
+        tableView.reloadData()
+        
     }
 
     // MARK: - IBActions
@@ -100,4 +117,34 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
 
+        //MARK: Load Recents from firebase
+    
+    func loadRecents() {
+        
+        firebase.childByAppendingPath("Recent").queryOrderedByChild("userId").queryEqualToValue(currentUser.objectId).observeEventType(.Value, withBlock: {
+            snapshot in
+            
+            self.recents.removeAll()
+            
+            if snapshot.exists() {
+                
+                let sorted = ((snapshot.value?.allValues)! as NSArray).sortedArrayUsingDescriptors([NSSortDescriptor(key: "date", ascending: false)])
+                
+                for recent in sorted {
+                    self.recents.append(recent as! NSDictionary)
+                    
+                    //add function to have offline access as well
+                    
+//                    firebase.childByAppendingPath("Recent").queryOrderedByChild("chatRoomID").queryEqualToValue(recent["chatRoomID"]).observeEventType(.Value withBlock: {
+//                        snapshot in
+//                    })
+                }
+                
+            }
+            
+            self.tableView.reloadData()
+        })
+    }
+    
+    
 }
