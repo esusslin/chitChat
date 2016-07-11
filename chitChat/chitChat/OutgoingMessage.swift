@@ -27,7 +27,7 @@ class OutgoingMessage {
         
     }
     
-    func mendMessage(chatRoomID: String, item: NSMutableDictionary) {
+    func sendMessage(chatRoomID: String, item: NSMutableDictionary) {
         
         let reference = firebase.childByAppendingPath(chatRoomID).childByAutoId()
         

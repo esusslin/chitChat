@@ -49,7 +49,7 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
-    //MARK: UITableview Delegate functions
+    //MARK: UITableviewDelegate functions
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -104,7 +104,7 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
             
             chatVC.recent = recent
             
-            chatVC.chatRoomId = recent["chatroomID"] as? String
+            chatVC.chatRoomId = recent["chatRoomID"] as? String
             
             
         }

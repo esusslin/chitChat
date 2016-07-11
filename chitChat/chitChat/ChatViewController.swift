@@ -21,6 +21,10 @@ class ChatViewController: JSQMessagesViewController {
     
     var chatRoomId: String!
     
+    var initialLoadComplete: Bool = false
+    
+    
+    
     let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleBlueColor())
     
     let incomingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
@@ -93,8 +97,7 @@ class ChatViewController: JSQMessagesViewController {
     override func didPressSendButton(sender: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
         
         if text != "" {
-            print("send message button pressed")
-            //send message
+            sendMessage(text, date: date, picture: nil, location: nil)
         }
     }
     
@@ -106,9 +109,10 @@ class ChatViewController: JSQMessagesViewController {
     
     func sendMessage(text: String?, date: NSDate, picture: UIImage?, location: String?) {
         
-        //if text message
+        var outgoingMessage = OutgoingMessage?()
         
         if let text = text {
+            outgoingMessage = OutgoingMessage(message: text, senderId: currentUser.objectId!, senderName: currentUser.name!, date: date, status: "Delivered", type: "text")
             
         }
         
@@ -123,6 +127,20 @@ class ChatViewController: JSQMessagesViewController {
         if let loc = location {
             
         }
+        
+        //play message sent sound 
+        
+        JSQSystemSoundPlayer.jsq_playMessageSentSound()
+        self.finishSendingMessage()
+        
+        outgoingMessage!.sendMessage(chatRoomId, item: outgoingMessage!.messageDictionary)
+        
+    }
+    
+    //MARK: load messages
+    
+    func loadMessages() {
+        
         
     }
 }
