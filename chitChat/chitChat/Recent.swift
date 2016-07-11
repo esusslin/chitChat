@@ -83,6 +83,19 @@ func CreateRecentItem(userId: String, chatRoomID: String, members: [String], wit
     }
 }
 
+//MARK: Restart Recent Chat
+
+func RestartRecentChat(recent: NSDictionary) {
+    
+    for userId in recent["members"] as! [String] {
+        
+        if userId != currentUser.objectId {
+            CreateRecent(userId, chatRoomID: (recent["chatRoomID"] as? String)!, members: recent["members"] as! [String], withUserUsername: currentUser.name, withUseruserId: currentUser.objectId)
+        }
+    }
+    
+}
+
 //MARK: Delete Recent functions
 
 func DeleteRecentItem(recent: NSDictionary) {

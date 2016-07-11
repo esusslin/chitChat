@@ -45,5 +45,9 @@ class ChatViewController: JSQMessagesViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: JSQMessages dataSource functions
+    
+    
+    
 
 }

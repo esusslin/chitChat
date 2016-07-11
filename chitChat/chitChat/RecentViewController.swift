@@ -55,6 +55,10 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
+        let recent = recents[indexPath.row]
+        
+        RestartRecentChat(recent)
+        
         performSegueWithIdentifier("recentToChatSegue", sender: indexPath)
     }
     
@@ -94,6 +98,7 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
         if segue.identifier == "recentToChatSegue" {
             let indexPath = sender as! NSIndexPath
             let chatVC = segue.destinationViewController as! ChatViewController
+            chatVC.hidesBottomBarWhenPushed = true
             
             let recent = recents[indexPath.row]
             
