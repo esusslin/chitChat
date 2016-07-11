@@ -83,6 +83,47 @@ func CreateRecentItem(userId: String, chatRoomID: String, members: [String], wit
     }
 }
 
+//MARK: Update Recent
+
+func UpdateRecents(chatRoomID: String, lastMessage: String) {
+    
+    firebase.childByAppendingPath("Recent").queryOrderedByChild("chatRoomID").queryEqualToValue(chatRoomID).observeSingleEventOfType(.Value, withBlock: {
+        snapshot in
+        
+        if snapshot.exists() {
+            for recent in snapshot.value!.allValues {
+                UpdateRecentItem(recent as! NSDictionary, lastMessage: lastMessage)
+            }
+        }
+        
+    })
+    
+}
+
+func UpdateRecentItem(recent: NSDictionary, lastMessage: String) {
+    
+    let date = dateFormatter().stringFromDate(NSDate())
+    
+    var counter = recent["counter"] as! Int
+    
+    if recent["userId"] as? String != currentUser.objectId {
+        counter++
+    }
+    
+    let values = ["lastMessage" : lastMessage, "counter" : counter, "date" : date]
+    
+    firebase.childByAppendingPath("Recent").childByAppendingPath((recent["recentId"] as? String)!).updateChildValues(values as [NSObject : AnyObject], withCompletionBlock: {
+        
+        (error, ref) -> Void in
+        
+        if error != nil {
+            print("Error couldnt update recent item")
+        }
+        
+    })
+    
+}
+
 //MARK: Restart Recent Chat
 
 func RestartRecentChat(recent: NSDictionary) {
