@@ -85,7 +85,12 @@ func CreateRecentItem(userId: String, chatRoomID: String, members: [String], wit
 
 //MARK: Delete Recent functions
 
-func DeleteRecentItem(recent: NSDictionary)
+func DeleteRecentItem(recent: NSDictionary) {
+    
+    firebase.childByAppendingPath("Recent").childByAppendingPath((recent["recentId"] as? String)!).removeValueWithCompletionBlock { (error, ref) -> Void in
+        
+    }
+}
 
 //MARK: helper functions
 

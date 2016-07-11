@@ -52,9 +52,10 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
     //MARK: UITableview Delegate functions
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        performSegueWithIdentifier("recentToChatSegue", sender: self)
+        performSegueWithIdentifier("recentToChatSegue", sender: indexPath)
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -69,6 +70,8 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
         recents.removeAtIndex(indexPath.row)
         
         // delete recent from firebase
+        
+        DeleteRecentItem(recent)
         
         tableView.reloadData()
         
