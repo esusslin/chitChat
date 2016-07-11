@@ -39,6 +39,7 @@ class ChatViewController: JSQMessagesViewController {
         collectionView?.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
         
         //load firebase messages
+        loadMessages()
         
         self.inputToolbar?.contentView?.textView?.placeHolder = "New Message"
 
@@ -141,6 +142,88 @@ class ChatViewController: JSQMessagesViewController {
     
     func loadMessages() {
         
+        ref.childByAppendingPath(chatRoomId).observeSingleEventOfType(.Value, withBlock: {
+            snapshot in
+            
+            //get dictionaries
+            
+            //create JSQ messages
+            
+            self.insertMessages()
+            self.finishReceivingMessageAnimated(true)
+            self.initialLoadComplete = true
+            
+            
+            })
         
+        ref.childByAppendingPath(chatRoomId).observeEventType(.ChildAdded, withBlock: {
+            snapshot in
+            
+            if snapshot.exists() {
+                let item = (snapshot.value as? NSDictionary)!
+                
+                if self.initialLoadComplete {
+                    
+                    let incoming = self.insertMessage(item)
+                    
+                    if incoming {
+                        JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+                        
+                    }
+                    
+                    self.finishSendingMessageAnimated(true)
+                    
+                    
+                } else {
+                    self.loaded.append(item)
+                }
+            }
+        })
+        
+        ref.childByAppendingPath(chatRoomId).observeEventType(.ChildChanged, withBlock: {
+            snapshot in
+            //updated message
+        })
+        
+        ref.childByAppendingPath(chatRoomId).observeEventType(.ChildRemoved, withBlock: {
+            snapshot in
+            //deleted message
+        })
+    }
+    
+    func insertMessages() {
+        for item in loaded {
+            //create message
+        }
+    }
+    
+    func insertMessage(item: NSDictionary) -> Bool {
+        
+        let incomingMessage = IncomingMessage(collectionView_: self.collectionView!)
+        
+        let message = incomingMessage.createMessage(item)
+        
+        objects.append(item)
+        messages.append(message!)
+        
+        return incoming(item)
+    }
+    
+    func incoming(item: NSDictionary) -> Bool {
+        
+        if self.senderId == item["senderId"] as! String {
+            return false
+        } else {
+            return true
+        }
+        
+    }
+    
+    func outgoing(item: NSDictionary) -> Bool {
+        if self.senderId == item["senderId"] as! String {
+            return true
+        } else {
+            return false
+        }
     }
 }

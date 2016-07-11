@@ -13,6 +13,7 @@
 		E21948121D306086001D13C1 /* RecentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21948111D306086001D13C1 /* RecentTableViewCell.swift */; };
 		E21948141D306173001D13C1 /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21948131D306173001D13C1 /* RecentViewController.swift */; };
 		E21948191D306B4B001D13C1 /* Recent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21948181D306B4B001D13C1 /* Recent.swift */; };
+		E222B3031D34544F00EE7D4B /* IncomingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222B3021D34544F00EE7D4B /* IncomingMessage.swift */; };
 		E2503CB51D30398C00C9AD7B /* WelcomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2503CB41D30398C00C9AD7B /* WelcomViewController.swift */; };
 		E2503CB71D303BAC00C9AD7B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2503CB61D303BAC00C9AD7B /* RegisterViewController.swift */; };
 		E2503CB91D303BB700C9AD7B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2503CB81D303BB700C9AD7B /* LoginViewController.swift */; };
@@ -54,6 +55,7 @@
 		E21948111D306086001D13C1 /* RecentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentTableViewCell.swift; path = chitChat/RecentTableViewCell.swift; sourceTree = "<group>"; };
 		E21948131D306173001D13C1 /* RecentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentViewController.swift; sourceTree = "<group>"; };
 		E21948181D306B4B001D13C1 /* Recent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recent.swift; sourceTree = "<group>"; };
+		E222B3021D34544F00EE7D4B /* IncomingMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessage.swift; sourceTree = "<group>"; };
 		E2503CB41D30398C00C9AD7B /* WelcomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomViewController.swift; sourceTree = "<group>"; };
 		E2503CB61D303BAC00C9AD7B /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E2503CB81D303BB700C9AD7B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				E2CA2E5F1D301518001F4084 /* AppDelegate.swift */,
 				E21948181D306B4B001D13C1 /* Recent.swift */,
 				E2C98D681D3432A4002B48F3 /* OutgoingMessage.swift */,
+				E222B3021D34544F00EE7D4B /* IncomingMessage.swift */,
 				E21948151D3061B5001D13C1 /* Login */,
 				E2CA2E631D301518001F4084 /* Main.storyboard */,
 				E21948161D3061D2001D13C1 /* CustomTableViewCells */,
@@ -414,6 +417,7 @@
 				E21948101D3052BD001D13C1 /* ProgressHUD.m in Sources */,
 				E2CA2E601D301518001F4084 /* AppDelegate.swift in Sources */,
 				E21948121D306086001D13C1 /* RecentTableViewCell.swift in Sources */,
+				E222B3031D34544F00EE7D4B /* IncomingMessage.swift in Sources */,
 				E29C583A1D31BA4A00C1A160 /* ChatViewController.swift in Sources */,
 				E2503CB51D30398C00C9AD7B /* WelcomViewController.swift in Sources */,
 			);
