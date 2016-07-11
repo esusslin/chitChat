@@ -10,6 +10,8 @@ import UIKit
 
 class ChatViewController: JSQMessagesViewController {
     
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     let ref = FIRDatabase.database().referenceFromURL("https://chittychatty-e7534.firebaseio.com/Message")
     
     var messages: [JSQMessage] = []
@@ -127,6 +129,11 @@ class ChatViewController: JSQMessagesViewController {
         
         if let loc = location {
             
+            let lat: NSNumber = NSNumber(double: (appDelegate.coordinate?.latitude)!)
+            let lng: NSNumber = NSNumber(double: (appDelegate.coordinate?.longitude)!)
+            
+            outgoingMessage = OutgoingMessage(message: "Location:", latitude: lat, longitude: lng, senderId: currentUser.objectId!, senderName: currentUser.name!, date: date, status: "Delivered", type: "location")
+
         }
         
         //play message sent sound 
