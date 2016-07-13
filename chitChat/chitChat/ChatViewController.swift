@@ -6,6 +6,7 @@
 //  Copyright © 2016 Emmet Susslin. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class ChatViewController: JSQMessagesViewController {
@@ -132,7 +133,7 @@ class ChatViewController: JSQMessagesViewController {
             let lat: NSNumber = NSNumber(double: (appDelegate.coordinate?.latitude)!)
             let lng: NSNumber = NSNumber(double: (appDelegate.coordinate?.longitude)!)
             
-            outgoingMessage = OutgoingMessage(message: "Location:", latitude: lat, longitude: lng, senderId: currentUser.objectId!, senderName: currentUser.name!, date: date, status: "Delivered", type: "location")
+//            outgoingMessage = OutgoingMessage(message: "Location:", latitude: lat, longitude: lng, senderId: currentUser.objectId!, senderName: currentUser.name!, date: date, status: "Delivered", type: "location")
 
         }
         

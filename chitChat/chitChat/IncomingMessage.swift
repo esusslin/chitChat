@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseDatabase
 
 class IncomingMessage {
     var collectionView: JSQMessagesCollectionView
