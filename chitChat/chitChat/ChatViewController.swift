@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+
 
 class ChatViewController: JSQMessagesViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    
     
     
     let ref = FIRDatabase.database().referenceFromURL("https://chittychatty-e7534.firebaseio.com/Message")

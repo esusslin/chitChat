@@ -1,6 +1,8 @@
 PODS:
   - Backendless (3.0.30)
   - DACircularProgress (2.3.1)
+  - Firebase (3.3.0):
+    - Firebase/Core (= 3.3.0)
   - Firebase/Analytics (3.3.0):
     - FirebaseAnalytics (= 3.2.1)
   - Firebase/Core (3.3.0):
@@ -36,6 +38,7 @@ PODS:
 
 DEPENDENCIES:
   - Backendless
+  - Firebase
   - Firebase/Core
   - Firebase/Database
   - IDMPhotoBrowser

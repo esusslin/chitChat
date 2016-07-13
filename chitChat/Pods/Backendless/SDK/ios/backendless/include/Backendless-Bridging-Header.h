@@ -20,3 +20,8 @@
  */
 
 #import "Backendless.h"
+#import <JSQMessagesViewController/JSQMessages.h> // import all the things
+#import <Firebase/Firebase.h>
+#import "ProgressHUD.h"
+//#import "IDMPhotoBrowser.h"
+#import "MBProgressHUD.h"
