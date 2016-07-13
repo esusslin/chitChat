@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatViewController: JSQMessagesViewController {
+class ChatViewController: JSQMessagesViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -282,5 +282,15 @@ class ChatViewController: JSQMessagesViewController {
             
             return false
         }
+    }
+    
+    //MARK: UIImagePickerController functions
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        let picture = info[UIImagePickerControllerEditedImage] as! UIImage
+        self.sendMessage(nil, date: NSDate(), picture: picture, location: nil)
+        
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }
