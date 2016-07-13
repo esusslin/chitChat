@@ -25,6 +25,7 @@ class Camera {
             imagePicker.sourceType = .PhotoLibrary
             
             if let availableTypes = UIImagePickerController.availableMediaTypesForSourceType(.PhotoLibrary) {
+                
                 if (availableTypes as NSArray).containsObject(type) {
                     
                     imagePicker.mediaTypes = [type]
@@ -66,11 +67,13 @@ class Camera {
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
             
             if let availableTypes = UIImagePickerController.availableMediaTypesForSourceType(.Camera) {
-            
-            if (availableTypes as NSArray).containsObject(type1)    {
-                imagePicker.mediaTypes = [type1]
-                imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-            }
+                
+                if (availableTypes as NSArray).containsObject(type1) {
+                    
+                    imagePicker.mediaTypes = [type1]
+                    imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+                    
+                }
             }
             
             if UIImagePickerController.isCameraDeviceAvailable(.Rear) {
@@ -80,25 +83,14 @@ class Camera {
                 imagePicker.cameraDevice = UIImagePickerControllerCameraDevice.Front
             }
         } else {
-            // show alert no camera
+            //shot alert no camera
             return
         }
         
         imagePicker.allowsEditing = canEdit
         imagePicker.showsCameraControls = true
-        
         imagePicker.delegate = target
-        
         target.presentViewController(imagePicker, animated: true, completion: nil)
-        
-    
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
 }

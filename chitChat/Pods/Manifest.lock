@@ -1,8 +1,6 @@
 PODS:
-  - Backendless (3.0.29)
+  - Backendless (3.0.30)
   - DACircularProgress (2.3.1)
-  - Firebase (3.3.0):
-    - Firebase/Core (= 3.3.0)
   - Firebase/Analytics (3.3.0):
     - FirebaseAnalytics (= 3.2.1)
   - Firebase/Core (3.3.0):
@@ -38,7 +36,6 @@ PODS:
 
 DEPENDENCIES:
   - Backendless
-  - Firebase
   - Firebase/Core
   - Firebase/Database
   - IDMPhotoBrowser
@@ -46,7 +43,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9.2)
 
 SPEC CHECKSUMS:
-  Backendless: f6f847650f5f8836bdb50ec4bc4a6d593b15f237
+  Backendless: 0fed76c39e231e2d7e8fc30fbe872dcca5f2ab4a
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   Firebase: 6250071f0e2440a5c4c67b8cb6b868f868237ac3
   FirebaseAnalytics: 0fd6532cb2c3d03cd5cf26ad295ccb091efd3104

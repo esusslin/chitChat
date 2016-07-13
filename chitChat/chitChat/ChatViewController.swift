@@ -112,11 +112,11 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         
         
         let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (alert: UIAlertAction!) -> Void in
-            print("Take photo")
+            Camera.PresentPhotoCamera(self, canEdit: true)
         }
         
         let sharePhoto = UIAlertAction(title: "Photo Library", style: .Default) { (alert: UIAlertAction!) -> Void in
-            print("photo library")
+            Camera.PresentPhotoCamera(self, canEdit: true)
         }
         
         let shareLocation = UIAlertAction(title: "Share Location", style: .Default) { (alert: UIAlertAction!) -> Void in
