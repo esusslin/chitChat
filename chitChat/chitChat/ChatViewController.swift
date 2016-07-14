@@ -6,9 +6,12 @@
 //  Copyright © 2016 Emmet Susslin. All rights reserved.
 //
 
+import Foundation
 import UIKit
+import Firebase
+import FirebaseDatabase
 
-class ChatViewController: JSQMessagesViewController {
+class ChatViewController: JSQMessagesViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -105,7 +108,42 @@ class ChatViewController: JSQMessagesViewController {
     }
     
     override func didPressAccessoryButton(sender: UIButton!) {
-        print("accessory button pressed")
+        
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        
+        let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (alert: UIAlertAction!) -> Void in
+            Camera.PresentPhotoCamera(self, canEdit: true)
+        }
+        
+        let sharePhoto = UIAlertAction(title: "Photo Library", style: .Default) { (alert: UIAlertAction!) -> Void in
+            Camera.PresentPhotoLibrary(self, canEdit: true)
+        }
+        
+        let shareLocation = UIAlertAction(title: "Share Location", style: .Default) { (alert: UIAlertAction!) -> Void in
+            print("lol?")
+            
+            print(self.appDelegate.coordinate?.latitude)
+            print(self.appDelegate.coordinate?.longitude)
+            
+            if self.haveAccessToLocation() {
+                self.sendMessage(nil, date: NSDate(), picture: nil, location: "location")
+            }
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (alert : UIAlertAction!) -> Void in
+            
+            print("Cancel")
+            
+        }
+        optionMenu.addAction(takePhoto)
+        optionMenu.addAction(sharePhoto)
+        optionMenu.addAction(shareLocation)
+        optionMenu.addAction(cancelAction)
+        
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+        
     }
     
     //MARK: send Message
@@ -114,15 +152,22 @@ class ChatViewController: JSQMessagesViewController {
         
         var outgoingMessage = OutgoingMessage?()
         
+        
+        //if text message
+        
         if let text = text {
             outgoingMessage = OutgoingMessage(message: text, senderId: currentUser.objectId!, senderName: currentUser.name!, date: date, status: "Delivered", type: "text")
             
         }
         
-        //if pic 
+        //if picture message
         
         if let pic = picture {
             
+            let imageData = UIImageJPEGRepresentation(pic, 1.0)
+
+            outgoingMessage = OutgoingMessage(message: "Picture", pictureData: imageData!, senderId: currentUser.objectId!, senderName: currentUser.name!, date: date, status: "Delivered", type: "picture")
+        
         }
         
         //if location
@@ -132,7 +177,8 @@ class ChatViewController: JSQMessagesViewController {
             let lat: NSNumber = NSNumber(double: (appDelegate.coordinate?.latitude)!)
             let lng: NSNumber = NSNumber(double: (appDelegate.coordinate?.longitude)!)
             
-            outgoingMessage = OutgoingMessage(message: "Location:", latitude: lat, longitude: lng, senderId: currentUser.objectId!, senderName: currentUser.name!, date: date, status: "Delivered", type: "location")
+            
+            outgoingMessage = OutgoingMessage(message: "Location", latitude: lat, longitude: lng, senderId: currentUser.objectId!, senderName: currentUser.name!, date: date, status: "Delivered", type: "location")
 
         }
         
@@ -226,11 +272,59 @@ class ChatViewController: JSQMessagesViewController {
         
     }
     
+    
+    
     func outgoing(item: NSDictionary) -> Bool {
         if self.senderId == item["senderId"] as! String {
             return true
         } else {
             return false
         }
+    }
+    
+    //MARK: Helper functions
+    
+    func haveAccessToLocation() -> Bool {
+        if let _ = appDelegate.coordinate?.latitude {
+            print("true")
+            return true
+        } else {
+            print("false")
+            return false
+        }
+    }
+    
+    //MARK: JSQDelegate functions
+    
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAtIndexPath indexPath: NSIndexPath!) {
+        
+        let object = objects[indexPath.row]
+        
+        if object["type"] as! String == "picture" {
+            
+            let message = messages[indexPath.row]
+            
+            let mediaItem = message.media as! JSQPhotoMediaItem
+            
+            let photos = IDMPhoto.photosWithImages([mediaItem.image])
+        
+            let browser = IDMPhotoBrowser(photos: photos)
+            
+            self.presentViewController(browser, animated: true, completion: nil)
+        }
+    }
+    
+    
+    
+    //MARK: UIImagePickerController functions
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        let picture = info[UIImagePickerControllerEditedImage] as! UIImage
+        
+        self.sendMessage(nil, date: NSDate(), picture: picture, location: nil)
+        
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }

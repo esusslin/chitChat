@@ -27,6 +27,7 @@
 		E2CA2E6A1D301519001F4084 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2CA2E681D301519001F4084 /* LaunchScreen.storyboard */; };
 		E2CA2E751D301519001F4084 /* chitChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CA2E741D301519001F4084 /* chitChatTests.swift */; };
 		E2CA2E801D301519001F4084 /* chitChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CA2E7F1D301519001F4084 /* chitChatUITests.swift */; };
+		E2F7DF491D3813EB003B523D /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7DF481D3813EB003B523D /* Camera.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		E2CA2E7B1D301519001F4084 /* chitChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chitChatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2CA2E7F1D301519001F4084 /* chitChatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chitChatUITests.swift; sourceTree = "<group>"; };
 		E2CA2E811D301519001F4084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2F7DF481D3813EB003B523D /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		E7676E498F73BA1F1C9710CC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -191,6 +193,7 @@
 				E21948181D306B4B001D13C1 /* Recent.swift */,
 				E2C98D681D3432A4002B48F3 /* OutgoingMessage.swift */,
 				E222B3021D34544F00EE7D4B /* IncomingMessage.swift */,
+				E2F7DF481D3813EB003B523D /* Camera.swift */,
 				E21948151D3061B5001D13C1 /* Login */,
 				E2CA2E631D301518001F4084 /* Main.storyboard */,
 				E21948161D3061D2001D13C1 /* CustomTableViewCells */,
@@ -418,6 +421,7 @@
 				E2CA2E601D301518001F4084 /* AppDelegate.swift in Sources */,
 				E21948121D306086001D13C1 /* RecentTableViewCell.swift in Sources */,
 				E222B3031D34544F00EE7D4B /* IncomingMessage.swift in Sources */,
+				E2F7DF491D3813EB003B523D /* Camera.swift in Sources */,
 				E29C583A1D31BA4A00C1A160 /* ChatViewController.swift in Sources */,
 				E2503CB51D30398C00C9AD7B /* WelcomViewController.swift in Sources */,
 			);
