@@ -89,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
    // MARK: CLLocation Delegate
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         
         coordinate = newLocation.coordinate
     }
