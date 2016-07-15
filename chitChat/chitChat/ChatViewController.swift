@@ -109,15 +109,17 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     
     override func didPressAccessoryButton(sender: UIButton!) {
         
+        let camera = Camera(delegate_: self)
+        
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
         
         let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (alert: UIAlertAction!) -> Void in
-            Camera.PresentPhotoCamera(self, canEdit: true)
+            camera.PresentPhotoCamera(self, canEdit: true)
         }
         
         let sharePhoto = UIAlertAction(title: "Photo Library", style: .Default) { (alert: UIAlertAction!) -> Void in
-            Camera.PresentPhotoLibrary(self, canEdit: true)
+            camera.PresentPhotoLibrary(self, canEdit: true)
         }
         
         let shareLocation = UIAlertAction(title: "Share Location", style: .Default) { (alert: UIAlertAction!) -> Void in
@@ -313,6 +315,10 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
             
             self.presentViewController(browser, animated: true, completion: nil)
         }
+        
+        if object["type"] as! String == "location" {
+            self.performSegueWithIdentifier("chatToMapSegue", sender: indexPath)
+        }
     }
     
     
@@ -326,5 +332,20 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         self.sendMessage(nil, date: NSDate(), picture: picture, location: nil)
         
         picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //MARK: Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "chatToMapSegue" {
+            
+            let indexPath = sender as! NSIndexPath
+            let message = messages[indexPath.row]
+            
+            let mediaItem = message.media as! JSQLocationMediaItem
+            let mapView = segue.destinationViewController as! MapViewController
+            mapView.location = mediaItem.location
+        }
     }
 }

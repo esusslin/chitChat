@@ -17,6 +17,7 @@
 		E2503CB51D30398C00C9AD7B /* WelcomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2503CB41D30398C00C9AD7B /* WelcomViewController.swift */; };
 		E2503CB71D303BAC00C9AD7B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2503CB61D303BAC00C9AD7B /* RegisterViewController.swift */; };
 		E2503CB91D303BB700C9AD7B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2503CB81D303BB700C9AD7B /* LoginViewController.swift */; };
+		E267F8DE1D384CDE00295AF3 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E267F8DD1D384CDE00295AF3 /* SettingsTableViewController.swift */; };
 		E28A37501D318EC00091504D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E28A374F1D318EC00091504D /* GoogleService-Info.plist */; };
 		E29C58381D31ADB400C1A160 /* ChooseUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29C58371D31ADB400C1A160 /* ChooseUserViewController.swift */; };
 		E29C583A1D31BA4A00C1A160 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29C58391D31BA4A00C1A160 /* ChatViewController.swift */; };
@@ -28,6 +29,7 @@
 		E2CA2E751D301519001F4084 /* chitChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CA2E741D301519001F4084 /* chitChatTests.swift */; };
 		E2CA2E801D301519001F4084 /* chitChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CA2E7F1D301519001F4084 /* chitChatUITests.swift */; };
 		E2F7DF491D3813EB003B523D /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7DF481D3813EB003B523D /* Camera.swift */; };
+		E2F7DF4D1D382F03003B523D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7DF4C1D382F03003B523D /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,7 @@
 		E2503CB41D30398C00C9AD7B /* WelcomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomViewController.swift; sourceTree = "<group>"; };
 		E2503CB61D303BAC00C9AD7B /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E2503CB81D303BB700C9AD7B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E267F8DD1D384CDE00295AF3 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		E28A374F1D318EC00091504D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E29C58371D31ADB400C1A160 /* ChooseUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseUserViewController.swift; sourceTree = "<group>"; };
 		E29C58391D31BA4A00C1A160 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +80,7 @@
 		E2CA2E7F1D301519001F4084 /* chitChatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chitChatUITests.swift; sourceTree = "<group>"; };
 		E2CA2E811D301519001F4084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2F7DF481D3813EB003B523D /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		E2F7DF4C1D382F03003B523D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E7676E498F73BA1F1C9710CC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -159,6 +163,8 @@
 			children = (
 				E21948131D306173001D13C1 /* RecentViewController.swift */,
 				E29C58391D31BA4A00C1A160 /* ChatViewController.swift */,
+				E2F7DF4C1D382F03003B523D /* MapViewController.swift */,
+				E267F8DD1D384CDE00295AF3 /* SettingsTableViewController.swift */,
 				E29C58371D31ADB400C1A160 /* ChooseUserViewController.swift */,
 			);
 			name = UIViewControllers;
@@ -422,8 +428,10 @@
 				E21948121D306086001D13C1 /* RecentTableViewCell.swift in Sources */,
 				E222B3031D34544F00EE7D4B /* IncomingMessage.swift in Sources */,
 				E2F7DF491D3813EB003B523D /* Camera.swift in Sources */,
+				E267F8DE1D384CDE00295AF3 /* SettingsTableViewController.swift in Sources */,
 				E29C583A1D31BA4A00C1A160 /* ChatViewController.swift in Sources */,
 				E2503CB51D30398C00C9AD7B /* WelcomViewController.swift in Sources */,
+				E2F7DF4D1D382F03003B523D /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
