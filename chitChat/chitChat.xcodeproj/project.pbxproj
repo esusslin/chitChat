@@ -18,6 +18,7 @@
 		E2503CB71D303BAC00C9AD7B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2503CB61D303BAC00C9AD7B /* RegisterViewController.swift */; };
 		E2503CB91D303BB700C9AD7B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2503CB81D303BB700C9AD7B /* LoginViewController.swift */; };
 		E267F8DE1D384CDE00295AF3 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E267F8DD1D384CDE00295AF3 /* SettingsTableViewController.swift */; };
+		E267F8E01D386B5D00295AF3 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E267F8DF1D386B5D00295AF3 /* Avatar.swift */; };
 		E28A37501D318EC00091504D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E28A374F1D318EC00091504D /* GoogleService-Info.plist */; };
 		E29C58381D31ADB400C1A160 /* ChooseUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29C58371D31ADB400C1A160 /* ChooseUserViewController.swift */; };
 		E29C583A1D31BA4A00C1A160 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29C58391D31BA4A00C1A160 /* ChatViewController.swift */; };
@@ -63,6 +64,7 @@
 		E2503CB61D303BAC00C9AD7B /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E2503CB81D303BB700C9AD7B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E267F8DD1D384CDE00295AF3 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		E267F8DF1D386B5D00295AF3 /* Avatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		E28A374F1D318EC00091504D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E29C58371D31ADB400C1A160 /* ChooseUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseUserViewController.swift; sourceTree = "<group>"; };
 		E29C58391D31BA4A00C1A160 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				E2C98D681D3432A4002B48F3 /* OutgoingMessage.swift */,
 				E222B3021D34544F00EE7D4B /* IncomingMessage.swift */,
 				E2F7DF481D3813EB003B523D /* Camera.swift */,
+				E267F8DF1D386B5D00295AF3 /* Avatar.swift */,
 				E21948151D3061B5001D13C1 /* Login */,
 				E2CA2E631D301518001F4084 /* Main.storyboard */,
 				E21948161D3061D2001D13C1 /* CustomTableViewCells */,
@@ -423,6 +426,7 @@
 				E21948141D306173001D13C1 /* RecentViewController.swift in Sources */,
 				E2C98D691D3432A4002B48F3 /* OutgoingMessage.swift in Sources */,
 				E2503CB71D303BAC00C9AD7B /* RegisterViewController.swift in Sources */,
+				E267F8E01D386B5D00295AF3 /* Avatar.swift in Sources */,
 				E21948101D3052BD001D13C1 /* ProgressHUD.m in Sources */,
 				E2CA2E601D301518001F4084 /* AppDelegate.swift in Sources */,
 				E21948121D306086001D13C1 /* RecentTableViewCell.swift in Sources */,

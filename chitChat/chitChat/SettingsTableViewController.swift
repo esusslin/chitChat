@@ -137,6 +137,31 @@ class SettingsTableViewController: UITableViewController, UINavigationController
         
     }
     
+    //MARK: UIImagePickerControllerDelegate functions
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        let image = info[UIImagePickerControllerEditedImage] as! UIImage
+        
+        uploadAvatar(image) { (imageLink) -> Void in
+            
+            let properties = ["Avatar" : imageLink!]
+            
+            currentUser!.updateProperties(properties)
+            
+            backendless.userService.update(currentUser, response: { (updatedUser: BackendlessUser!) -> Void in
+                
+                print("updated current user \(updatedUser)")
+                
+                
+                }, error: { (fault : Fault!) -> Void in
+                    print("error: \(fault)")
+            })
+        
+        }
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     //MARK: UserDefaults
     
     func saveUserDefaults() {
