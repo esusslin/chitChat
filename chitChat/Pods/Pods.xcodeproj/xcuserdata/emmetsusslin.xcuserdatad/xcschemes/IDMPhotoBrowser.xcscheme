@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '9C22848F14962ACE823701F5'
+               BlueprintIdentifier = '6A21C3D288B69B901CE445BC'
                BlueprintName = 'IDMPhotoBrowser'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libIDMPhotoBrowser.a'>
