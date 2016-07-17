@@ -21,6 +21,12 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     var objects: [NSDictionary] = []
     var loaded: [NSDictionary] = []
     
+    var avatarImagesDictionary: NSMutableDictionary?
+    var avatarDictionary: NSMutableDictionary?
+    
+    var showAvatars: Bool = false
+    var firstLoad: Bool?
+    
     var withUser: BackendlessUser?
     var recent: NSDictionary?
     
@@ -98,6 +104,49 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         
     }
     
+    override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
+        
+        if indexPath.item % 3 == 0 {
+        
+        let message = messages[indexPath.item]
+        
+        return JSQMessagesTimestampFormatter.sharedFormatter().attributedTimestampForDate(message.date)
+        }
+        return nil
+    }
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        
+        if indexPath.item % 3 == 0 {
+            
+            return kJSQMessagesCollectionViewCellLabelHeightDefault
+            
+        }
+        return 0.0
+    }
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForCellBottomLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString {
+        
+        let message = objects[indexPath.row]
+        
+        let status = message["status"] as! String
+        
+        if indexPath.row == (messages.count - 1) {
+            return NSAttributedString(string: status)
+        } else {
+            return NSAttributedString(string: "")
+        }
+        
+    }
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellBottomLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        
+        if outgoing(objects[indexPath.row]) {
+            return kJSQMessagesCollectionViewCellLabelHeightDefault
+        } else {
+            return 0.0
+        }
+    }
     //MARK: JSQMessages Delegate function
     
     override func didPressSendButton(sender: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
@@ -296,6 +345,89 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         }
     }
     
+    func getAvatars() {
+        
+        if showAvatars {
+            
+            collectionView?.collectionViewLayout.incomingAvatarViewSize = CGSizeMake(30,30)
+            collectionView?.collectionViewLayout.outgoingAvatarViewSize = CGSizeMake(30,30)
+            
+            //download avatars
+            
+            //create avatars
+        }
+    }
+    
+    
+    func getWithUserFromRecent(recent: NSDictionary, result: (withUser: BackendlessUser) -> Void) {
+        
+        let withUserId = recent["withUserUserId"] as? String
+        
+        let whereClause = "objectId = '\(withUserId!)'"
+        let dataQuery = BackendlessDataQuery()
+        dataQuery.whereClause = whereClause
+        
+        let dataStore = backendless.persistenceService.of(BackendlessUser.ofClass())
+        
+        dataStore.find(dataQuery, response: { (users : BackendlessCollection!) -> Void in
+            
+            let withUser = users.data.first as! BackendlessUser
+            
+            result(withUser: withUser)
+            
+        }) { (fault : Fault!) -> Void in
+            print("Server report an error : \(fault)")
+    }
+    }
+    
+    func createAvatars(avatars: NSMutableDictionary?) {
+        
+        var currentUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage (named: "avatarPlaceholder"), diameter: 70)
+        var withUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage (named: "avatarPlaceholder"), diameter: 70)
+        
+        if let avat = avatars {
+            if let currentUserAvatarImage = avat.objectForKey(currentUser.objectId) {
+                
+                currentUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage (data: currentUserAvatarImage as! NSData), diameter: 70)
+                self.collectionView?.reloadData()
+            }
+        }
+        
+        if let avat = avatars {
+            if let withUserAvatarImage = avat.objectForKey(currentUser.objectId) {
+                
+                withUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage (data: withUserAvatarImage as! NSData), diameter: 70)
+                self.collectionView?.reloadData()
+            }
+        }
+        
+        avatarImagesDictionary = [currentUser.objectId : currentUserAvatar, withUser!.objectId! : withUserAvatar]
+        
+    }
+    
+    func avatarImageFromBackendlessUser(user: BackendlessUser) {
+        
+        if let imageLink = user.getProperty("Avatar") {
+            
+            getImageFromURL(imageLink as! String, result: { (image) -> Void in
+                
+                let imageData = UIImageJPEGRepresentation(image!, 1.0)
+                
+                if self.avatarImagesDictionary != nil {
+                    
+                    self.avatarImagesDictionary!.removeObjectForKey(user.objectId)
+                    self.avatarImagesDictionary!.setObject(imageData!, forKey: user.objectId!)
+                } else {
+                    self.avatarImagesDictionary = [user.objectId! : imageData!]
+                }
+                self.createAvatars(self.avatarImagesDictionary)
+                
+                })
+                
+                
+        }
+    }
+
     //MARK: JSQDelegate functions
     
     

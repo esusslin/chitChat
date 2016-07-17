@@ -35,6 +35,9 @@ class SettingsTableViewController: UITableViewController, UINavigationController
         
         imageUser.layer.cornerRadius = imageUser.frame.size.width / 2
         imageUser.layer.masksToBounds = true
+        
+        loadUserDefaults()
+        updateUI()
     }
 
     override func didReceiveMemoryWarning() {
@@ -108,6 +111,14 @@ class SettingsTableViewController: UITableViewController, UINavigationController
         return headerView
     }
     
+    //MARK: tableview delegate functions
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 1 && indexPath.row == 0 {
+            showLogoutView()
+        }
+    }
+    
     //MARK: Change pic
     
     func changePhoto() {
@@ -160,6 +171,46 @@ class SettingsTableViewController: UITableViewController, UINavigationController
         
         }
         picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //MARK: Update UI
+    
+    func updateUI() {
+        userNameLabel.text = currentUser.name
+        
+        avatarSwitch.setOn(avatarSwitchStatus, animated: false)
+        
+        if let imageLink = currentUser.getProperty("Avatar") {
+            getImageFromURL(imageLink as! String, result: { (image) -> Void in
+                self.imageUser.image = image
+            })
+        }
+    }
+    
+    //MARK: Helper functions
+    
+    func showLogoutView() {
+        
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let logoutAction = UIAlertAction(title: "Log Out", style: .Destructive) { (alert: UIAlertAction!) -> Void in
+            self.logOut()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (alert: UIAlertAction!) -> Void in
+         print("cancelled")
+        }
+        
+        optionMenu.addAction(logoutAction)
+        optionMenu.addAction(cancelAction)
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+    }
+    
+    func logOut() {
+        backendless.userService.logout()
+        
+        let loginView = storyboard!.instantiateViewControllerWithIdentifier("LoginView")
+        self.presentViewController(loginView, animated: true, completion: nil)
     }
     
     //MARK: UserDefaults
