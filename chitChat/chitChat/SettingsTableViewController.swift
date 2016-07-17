@@ -62,7 +62,7 @@ class SettingsTableViewController: UITableViewController, UINavigationController
             print("it off")
         }
         
-        // save userdefaults
+//         save userdefaults
     }
     
 
@@ -176,6 +176,7 @@ class SettingsTableViewController: UITableViewController, UINavigationController
     //MARK: Update UI
     
     func updateUI() {
+        
         userNameLabel.text = currentUser.name
         
         avatarSwitch.setOn(avatarSwitchStatus, animated: false)
@@ -227,6 +228,7 @@ class SettingsTableViewController: UITableViewController, UINavigationController
         if !firstLoad! {
             userDefaults.setBool(true, forKey: kFIRSTRUN)
             userDefaults.setBool(avatarSwitchStatus, forKey: kAVATARSTATE)
+            userDefaults.synchronize()
         }
         
         avatarSwitchStatus = userDefaults.boolForKey(kAVATARSTATE)
