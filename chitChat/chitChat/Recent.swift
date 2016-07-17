@@ -10,6 +10,11 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 
+//-------Constants--------\\
+
+public let kAVATARSTATE = "avatarState"
+public let kFIRSTRUN = "firstRun"
+
 let firebase = FIRDatabase.database().referenceFromURL("https://chittychatty-e7534.firebaseio.com/")
 let backendless = Backendless.sharedInstance()
 let currentUser = backendless.userService.currentUser
