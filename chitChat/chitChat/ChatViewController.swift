@@ -13,6 +13,8 @@ import FirebaseDatabase
 
 class ChatViewController: JSQMessagesViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
+    let userDefaults = NSUserDefaults.standardUserDefaults()
+    
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     let ref = FIRDatabase.database().referenceFromURL("https://chittychatty-e7534.firebaseio.com/Message")
@@ -24,7 +26,7 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     var avatarImagesDictionary: NSMutableDictionary?
     var avatarDictionary: NSMutableDictionary?
     
-    var showAvatars: Bool = true
+    var showAvatars: Bool = false
     var firstLoad: Bool?
     
     var withUser: BackendlessUser?
@@ -39,6 +41,17 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleBlueColor())
     
     let incomingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        loadUserDefaults()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        ClearRecentCounter(chatRoomId)
+        ref.removeAllObservers()
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -272,16 +285,12 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         ref.childByAppendingPath(chatRoomId).observeSingleEventOfType(.Value, withBlock: {
             snapshot in
             
-            //get dictionaries
-            
-            //create JSQ messages
-            
             self.insertMessages()
             self.finishReceivingMessageAnimated(true)
             self.initialLoadComplete = true
             
-            
-            })
+        })
+        
         
         ref.childByAppendingPath(chatRoomId).observeEventType(.ChildAdded, withBlock: {
             snapshot in
@@ -293,10 +302,9 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
                     
                     let incoming = self.insertMessage(item)
                     
-                    if incoming {
-                        JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
-                        
-                    }
+//                    if incoming {
+//                        JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+//                    }
                     
                     self.finishSendingMessageAnimated(true)
                     
@@ -306,7 +314,7 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
                 }
             }
         })
-        
+
         ref.childByAppendingPath(chatRoomId).observeEventType(.ChildChanged, withBlock: {
             snapshot in
             //updated message
@@ -316,7 +324,10 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
             snapshot in
             //deleted message
         })
-    }
+        
+        
+     }
+        
     
     func insertMessages() {
         for item in loaded {
@@ -504,5 +515,20 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
             let mapView = segue.destinationViewController as! MapViewController
             mapView.location = mediaItem.location
         }
+    }
+    
+    //MARK: User Defaults functions
+    
+    func loadUserDefaults() {
+        firstLoad = userDefaults.boolForKey(kFIRSTRUN)
+        
+        if !firstLoad! {
+            userDefaults.setBool(true, forKey: kFIRSTRUN)
+            userDefaults.setBool(showAvatars, forKey: kAVATARSTATE)
+            userDefaults.synchronize()
+        }
+        
+        showAvatars = userDefaults.boolForKey(kAVATARSTATE)
+        
     }
 }

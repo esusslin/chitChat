@@ -150,8 +150,42 @@ func DeleteRecentItem(recent: NSDictionary) {
     
     firebase.childByAppendingPath("Recent").childByAppendingPath((recent["recentId"] as? String)!).removeValueWithCompletionBlock { (error, ref) -> Void in
         
+        if error != nil {
+            print("Error deleting recent item: \(error)")
+        }
     }
 }
+
+//MARK: Clear recent counter function
+
+func ClearRecentCounter(chatRoomID: String) {
+    
+    firebase.childByAppendingPath("Recent").queryOrderedByChild("chatRoomID").queryEqualToValue(chatRoomID).observeSingleEventOfType(.Value, withBlock: {
+        
+        snapshot in
+        
+        if snapshot.exists() {
+            for recent in (snapshot.value?.allValues)! {
+                if recent.objectForKey("userId") as? String == currentUser.objectId {
+                    ClearRecentCounterItem(recent as! NSDictionary)
+                }
+            }
+        }
+    })
+}
+
+func ClearRecentCounterItem(recent: NSDictionary) {
+    
+    firebase.childByAppendingPath("Recent").childByAppendingPath((recent["recentId"] as?
+        String)!).updateChildValues(["counter" : 0]) { (error, ref) -> Void in
+            
+            if error != nil {
+                print("Error couldnt update recents counter: \(error!.localizedDescription)")
+            }
+    }
+    
+}
+
 
 //MARK: helper functions
 
