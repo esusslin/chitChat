@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -53,6 +53,43 @@ class RegisterViewController: UIViewController {
         }
         
     }
+    
+    
+    @IBAction func uploadPhotoButtonPressed(sender: AnyObject) {
+        
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let camera = Camera(delegate_: self)
+        
+        let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (alert:UIAlertAction!) -> Void in
+            camera.PresentPhotoCamera(self, canEdit: true)
+        }
+        
+        let sharePhoto = UIAlertAction(title: "Photo Library", style: .Default) { (alert : UIAlertAction!) -> Void in
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (alert : UIAlertAction!) -> Void in
+            print("Cancelled")
+        }
+        
+        optionMenu.addAction(takePhoto)
+        optionMenu.addAction(sharePhoto)
+        optionMenu.addAction(cancelAction)
+        
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+    }
+    
+    //MARK: UIImagepickercontroller delegate
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo
+        info: [String : AnyObject]) {
+        
+        self.avatarImage = (info[UIImagePickerControllerEditedImage] as! UIImage)
+        
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
     //MARK: Backendless user registration
     

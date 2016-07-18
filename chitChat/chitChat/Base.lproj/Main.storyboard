@@ -125,7 +125,13 @@
                             <constraint firstItem="s2G-hv-6qB" firstAttribute="leading" secondItem="KVV-jc-9T0" secondAttribute="leadingMargin" id="vvX-O1-0Jh"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Register" id="U0O-D2-HXw"/>
+                    <navigationItem key="navigationItem" title="Register" id="U0O-D2-HXw">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="aSb-7E-YWs">
+                            <connections>
+                                <action selector="uploadPhotoButtonPressed:" destination="6kt-qM-mWF" id="5SY-FO-o9G"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="emailTextField" destination="li4-Lt-JCX" id="zxq-xb-Oxh"/>
                         <outlet property="passwordTextField" destination="s2G-hv-6qB" id="cKI-HD-9GE"/>
