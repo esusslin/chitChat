@@ -13,6 +13,8 @@ import FirebaseDatabase
 
 class ChatViewController: JSQMessagesViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
+    let userDefaults = NSUserDefaults.standardUserDefaults()
+    
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     let ref = FIRDatabase.database().referenceFromURL("https://chittychatty-e7534.firebaseio.com/Message")
@@ -39,6 +41,17 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleBlueColor())
     
     let incomingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        loadUserDefaults()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        ClearRecentCounter(chatRoomId)
+        ref.removeAllObservers()
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +61,18 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         
         collectionView?.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
         collectionView?.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+        
+        if withUser?.objectId == nil {
+            getWithUserFromRecent(recent!, result: { (withUser) -> Void in
+                self.withUser = withUser
+                
+                self.title = withUser.name
+                self.getAvatars()
+            })
+        } else {
+            self.title = withUser!.name
+            self.getAvatars()
+        }
         
         //load firebase messages
         loadMessages()
@@ -147,6 +172,17 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
             return 0.0
         }
     }
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
+        
+        let message = messages[indexPath.row]
+        
+        let avatar = avatarDictionary!.objectForKey(message.senderId) as! JSQMessageAvatarImageDataSource
+        
+        return avatar
+    }
+    
+    
     //MARK: JSQMessages Delegate function
     
     override func didPressSendButton(sender: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
@@ -249,16 +285,12 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         ref.childByAppendingPath(chatRoomId).observeSingleEventOfType(.Value, withBlock: {
             snapshot in
             
-            //get dictionaries
-            
-            //create JSQ messages
-            
             self.insertMessages()
             self.finishReceivingMessageAnimated(true)
             self.initialLoadComplete = true
             
-            
-            })
+        })
+        
         
         ref.childByAppendingPath(chatRoomId).observeEventType(.ChildAdded, withBlock: {
             snapshot in
@@ -270,10 +302,9 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
                     
                     let incoming = self.insertMessage(item)
                     
-                    if incoming {
-                        JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
-                        
-                    }
+//                    if incoming {
+//                        JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+//                    }
                     
                     self.finishSendingMessageAnimated(true)
                     
@@ -283,7 +314,7 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
                 }
             }
         })
-        
+
         ref.childByAppendingPath(chatRoomId).observeEventType(.ChildChanged, withBlock: {
             snapshot in
             //updated message
@@ -293,7 +324,10 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
             snapshot in
             //deleted message
         })
-    }
+        
+        
+     }
+        
     
     func insertMessages() {
         for item in loaded {
@@ -353,8 +387,11 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
             collectionView?.collectionViewLayout.outgoingAvatarViewSize = CGSizeMake(30,30)
             
             //download avatars
+            avatarImageFromBackendlessUser(currentUser)
+            avatarImageFromBackendlessUser(withUser!)
             
             //create avatars
+            createAvatars(avatarImagesDictionary)
         }
     }
     
@@ -385,6 +422,7 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         var currentUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage (named: "avatarPlaceholder"), diameter: 70)
         var withUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage (named: "avatarPlaceholder"), diameter: 70)
         
+        
         if let avat = avatars {
             if let currentUserAvatarImage = avat.objectForKey(currentUser.objectId) {
                 
@@ -394,14 +432,14 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         }
         
         if let avat = avatars {
-            if let withUserAvatarImage = avat.objectForKey(currentUser.objectId) {
+            if let withUserAvatarImage = avat.objectForKey(withUser!.objectId) {
                 
                 withUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage (data: withUserAvatarImage as! NSData), diameter: 70)
                 self.collectionView?.reloadData()
             }
         }
         
-        avatarImagesDictionary = [currentUser.objectId : currentUserAvatar, withUser!.objectId! : withUserAvatar]
+        avatarDictionary = [currentUser.objectId : currentUserAvatar, withUser!.objectId! : withUserAvatar]
         
     }
     
@@ -423,8 +461,6 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
                 self.createAvatars(self.avatarImagesDictionary)
                 
                 })
-                
-                
         }
     }
 
@@ -479,5 +515,20 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
             let mapView = segue.destinationViewController as! MapViewController
             mapView.location = mediaItem.location
         }
+    }
+    
+    //MARK: User Defaults functions
+    
+    func loadUserDefaults() {
+        firstLoad = userDefaults.boolForKey(kFIRSTRUN)
+        
+        if !firstLoad! {
+            userDefaults.setBool(true, forKey: kFIRSTRUN)
+            userDefaults.setBool(showAvatars, forKey: kAVATARSTATE)
+            userDefaults.synchronize()
+        }
+        
+        showAvatars = userDefaults.boolForKey(kAVATARSTATE)
+        
     }
 }

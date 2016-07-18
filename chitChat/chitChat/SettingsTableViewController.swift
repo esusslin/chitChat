@@ -62,7 +62,7 @@ class SettingsTableViewController: UITableViewController, UINavigationController
             print("it off")
         }
         
-//         save userdefaults
+        saveUserDefaults()
     }
     
 
