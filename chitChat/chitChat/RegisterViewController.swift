@@ -66,7 +66,7 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
         }
         
         let sharePhoto = UIAlertAction(title: "Photo Library", style: .Default) { (alert : UIAlertAction!) -> Void in
-            
+            camera.PresentPhotoLibrary(self, canEdit: true)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (alert : UIAlertAction!) -> Void in
@@ -97,6 +97,22 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
         
         if avatarImage == nil {
             newUser!.setProperty("Avatar", object: "")
+
+        } else {
+            
+            uploadAvatar(avatarImage!, result: { (imageLink) -> Void in
+                
+                let properties = ["Avatar" : imageLink!]
+                
+                currentUser!.updateProperties(properties)
+                
+                self.backendless.userService.update(currentUser, response: { (updatedUser: BackendlessUser!) -> Void in
+                    print("updated current user avatar")
+                    }, error: { (fault : Fault!) -> Void in
+                        
+                        print("error couldn't set avatar image \(fault)")
+                    })
+            })
         }
         
         newUser!.email = email
