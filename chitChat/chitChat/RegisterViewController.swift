@@ -61,7 +61,7 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
         
         let camera = Camera(delegate_: self)
         
-        let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (alert:UIAlertAction!) -> Void in
+        let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (alert : UIAlertAction!) -> Void in
             camera.PresentPhotoCamera(self, canEdit: true)
         }
         
@@ -87,6 +87,8 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
         
         self.avatarImage = (info[UIImagePickerControllerEditedImage] as! UIImage)
         
+        print(avatarImage)
+        
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -97,21 +99,16 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
         
         if avatarImage == nil {
             newUser!.setProperty("Avatar", object: "")
-
         } else {
-            
-            uploadAvatar(avatarImage!, result: { (imageLink) -> Void in
-                
+            uploadAvatar(avatarImage!, result: { (imageLink) in
                 let properties = ["Avatar" : imageLink!]
-                
                 currentUser!.updateProperties(properties)
                 
-                self.backendless.userService.update(currentUser, response: { (updatedUser: BackendlessUser!) -> Void in
+                self.backendless.userService.update(currentUser, response: { (updatedUser: BackendlessUser!) in
                     print("updated current user avatar")
-                    }, error: { (fault : Fault!) -> Void in
-                        
+                    }, error: { (fault : Fault!) in
                         print("error couldn't set avatar image \(fault)")
-                    })
+                })
             })
         }
         
