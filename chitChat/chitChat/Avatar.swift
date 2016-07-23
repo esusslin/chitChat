@@ -28,13 +28,18 @@ func uploadAvatar(image: UIImage, result: (imageLink: String?) ->Void) {
 func getImageFromURL(url: String, result: (image: UIImage?) ->Void) {
     
     let URL = NSURL(string: url)
+//    print(URL)
     
     let downloadQue = dispatch_queue_create("imageDownloadQue", nil)
     
     dispatch_async(downloadQue) { () -> Void in
         let data = NSData(contentsOfURL: URL!)
         
+//        print(data)
+        
         let image: UIImage!
+        
+//        print(image)
         
         if data != nil {
             image = UIImage(data: data!)

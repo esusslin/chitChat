@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class WelcomViewController: UIViewController {
+    
+    @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
+    
     
     let backendless = Backendless.sharedInstance()
     var currentUser: BackendlessUser?
@@ -32,7 +37,7 @@ class WelcomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        fbLoginButton.readPermissions = ["public_profile", "email"]
     }
 
     override func didReceiveMemoryWarning() {

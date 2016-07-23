@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class SettingsTableViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
@@ -209,6 +211,12 @@ class SettingsTableViewController: UITableViewController, UINavigationController
     
     func logOut() {
         backendless.userService.logout()
+        
+        if FBSDKAccessToken.currentAccessToken() != nil {
+        
+            let loginManager = FBSDKLoginManager()
+            loginManager.logOut()
+        }
         
         let loginView = storyboard!.instantiateViewControllerWithIdentifier("LoginView")
         self.presentViewController(loginView, animated: true, completion: nil)

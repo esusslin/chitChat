@@ -45,5 +45,28 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>chitChat needs to use your location!</string>
+
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb1658039354517072</string>
+            </array>
+        </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>1658039354517072</string>
+    <key>FacebookDisplayName</key>
+    <string>chitChat</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fb-messenger-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
+    </array>
+    
+    
 </dict>
 </plist>
