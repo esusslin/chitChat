@@ -47,17 +47,23 @@ class RecentTableViewCell: UITableViewCell {
         
         let dataStore = backendless.persistenceService.of(BackendlessUser.ofClass())
         
-        dataStore.find(dataQuery, response: { (users : BackendlessCollection!) -> Void in
+        dataStore.find(dataQuery, response: { (users : BackendlessCollection!) in
             
-            let withUser = users.data.first as! BackendlessUser
+            if let withUser = users.data.first as? BackendlessUser {
+                
+                print(withUser)
             
-            // user withUser to get our avatar
+            if let avatarURL = withUser.getProperty("Avatar") {
+                    getImageFromURL(avatarURL as! String, result: { (image) in
+                        self.avatarImageView.image = image
+                                })
+                }
+            }
             
-        }) { (fault: Fault!) -> Void in
-            print("error, couldnt get user avatar: \(fault)")
-        
+        }) { (fault: Fault!) in
+                print("error, couldnt get user avatar: \(fault)")
         }
-        
+
         nameLabel.text = recent["withUserUsername"] as? String
         lastMessageLabel.text = recent["lastMessage"] as? String
         counterLabel.text = ""

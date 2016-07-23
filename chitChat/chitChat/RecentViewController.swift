@@ -143,9 +143,9 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
                     
                     //add function to have offline access as well
                     
-//                    firebase.childByAppendingPath("Recent").queryOrderedByChild("chatRoomID").queryEqualToValue(recent["chatRoomID"]).observeEventType(.Value withBlock: {
-//                        snapshot in
-//                    })
+                firebase.childByAppendingPath("Recent").queryOrderedByChild("chatRoomID").queryEqualToValue(recent["chatRoomID"]).observeEventType(.Value, withBlock: {
+                        snapshot in
+                    })
                 }
                 
             }
